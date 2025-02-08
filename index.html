@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Valentine ❤</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* Loader Styles */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #ffebee;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .heart-loader {
+            animation: pulse 1.2s infinite;
+            font-size: 50px;
+            color: #ff4081;
+        }
+
+        .floating-hearts span {
+            position: absolute;
+            animation: float 3s infinite linear;
+            opacity: 0;
+            font-size: 20px;
+        }
+
+        /* Lock Screen Styles */
+        #lock-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 235, 238, 0.95);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .password-box {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        /* Envelope Styles */
+        .envelope {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            margin: 100px auto;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        .envelope-front {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: #ff8a80;
+            clip-path: polygon(0 0, 100% 0, 50% 50%);
+        }
+
+        /* Letter Styles */
+        .letter {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 90%;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .envelope {
+                width: 200px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loader">
+        <div class="floating-hearts"></div>
+        <div class="heart-loader">❤</div>
+    </div>
+
+    <!-- Lock Screen -->
+    <div id="lock-screen">
+        <div class="password-box">
+            <h2 style="font-family: 'Pacifico', cursive; color: #ff4081;">Enter Our Secret Code ❤</h2>
+            <input type="password" id="password" placeholder="Type our special date...">
+            <button onclick="checkPassword()" style="margin-top: 10px; background: #ff4081; color: white; border: none; padding: 8px 20px; border-radius: 20px;">Unlock Love</button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" style="display: none;">
+        <div class="envelope" onclick="openEnvelope()">
+            <div class="envelope-front"></div>
+            <div class="envelope-back"></div>
+        </div>
+    </div>
+
+    <!-- Letter Content -->
+    <div class="letter">
+        <h2 style="font-family: 'Pacifico', cursive; color: #ff4081;">To My Amazing Girlfriend,</h2>
+        <p>You make every day brighter just by being in it...</p>
+        <!-- Add your personalized message here -->
+        <button onclick="closeLetter()" style="background: #ff4081; color: white; border: none; padding: 8px 20px; border-radius: 20px; margin-top: 15px;">Close ❤</button>
+    </div>
+
+    <script>
+        // Loader Animation
+        function createHearts() {
+            const heartsContainer = document.querySelector('.floating-hearts');
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('span');
+                heart.innerHTML = '❤';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 3 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Show lock screen after loading
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+                document.getElementById('lock-screen').style.display = 'flex';
+            }, 3000);
+            createHearts();
+        });
+
+        // Password Check
+        function checkPassword() {
+            const password = document.getElementById('password').value;
+            // Change this to your special password
+            if (password.toLowerCase() === 'iloveyou') { 
+                document.getElementById('lock-screen').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+            } else {
+                alert('Try again my love ❤');
+            }
+        }
+
+        // Envelope Animation
+        function openEnvelope() {
+            document.querySelector('.envelope').style.transform = 'scale(0) rotate(360deg)';
+            document.querySelector('.letter').style.display = 'block';
+        }
+
+        function closeLetter() {
+            document.querySelector('.letter').style.display = 'none';
+            document.querySelector('.envelope').style.transform = 'scale(1)';
+        }
+    </script>
+</body>
+</html>
